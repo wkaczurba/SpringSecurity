@@ -7,8 +7,7 @@ import com.some.web.WebConfig;
 public class SomeWebInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
-		// TODO Auto-generated method stub
-		return null;
+		return new Class<?>[] { RootConfig.class };
 	}
 	
 	@Override
