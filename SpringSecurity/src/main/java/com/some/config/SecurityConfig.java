@@ -9,6 +9,9 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Configuration
 @EnableWebSecurity
@@ -25,13 +28,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.httpBasic();
 	}
 	
+	@Autowired DataSource dataSource;
+	boolean basicAuthentication = false;
+	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		// Basic in-memory authentication:
-		auth
-			.inMemoryAuthentication()
-			.withUser("user").password("password").roles("USER").and()
-			.withUser("admin").password("password").roles("USER", "ADMIN");
+		if (basicAuthentication) {		
+			// Basic in-memory authentication:
+			auth
+				.inMemoryAuthentication()
+				.withUser("user").password("password").roles("USER").and()
+				.withUser("admin").password("password").roles("USER", "ADMIN");
+		} else {
+			auth
+				.jdbcAuthentication()
+				.dataSource(dataSource);
+			// JDBC authentication
+			
+		}
 		
 		// other methods that are possible to apply:
 		//   accountExpired(boolean)
@@ -45,4 +59,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		//   password(String)
 		//   roles(String ...)
 	}
+	
 }
