@@ -11,4 +11,14 @@ public class MainController {
 		return "main";
 	}
 
+	@RequestMapping("/sec")
+	public String securedWebpage() {
+		return "sec";
+	}
+
+	@RequestMapping("/insec")
+	public String insecuredWebPage() {
+		return "insec";
+	}
+
 }

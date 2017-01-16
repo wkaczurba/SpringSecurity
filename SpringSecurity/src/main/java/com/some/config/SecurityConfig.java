@@ -28,6 +28,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.and()
 			.formLogin()
 				.and()
+			.requiresChannel()
+			    .antMatchers("/sec/**").requiresSecure()
+			    .and()
+	        .requiresChannel()
+	            .antMatchers("/insec/**").requiresInsecure()
+	            .and()
 			.httpBasic();
 	}
 	
