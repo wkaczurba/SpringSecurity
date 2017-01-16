@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-security4">
+<head>
+<meta charset="ISO-8859-1">
+<title>main</title>
+</head>
+<body>
+<h1>main.html (thymeleaf)</h1>
+
+<ul>
+  <li>secure webpage - <a th:href="@{/sec/}">here</a></li>
+  <li>insecure webpage - <a th:href="@{/insec/}">here</a></li>
+</ul>
+
+</body>
+</html>
