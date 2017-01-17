@@ -24,13 +24,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 	    http
-			.authorizeRequests()
-				.anyRequest()
-				.authenticated()
-				.and()
 			.formLogin()
-                .loginPage("/login")
-                .permitAll()
+	            .loginPage("/login")
+	              .successForwardUrl("/")
+				.and()
+				.logout()
+				  .logoutSuccessUrl("/") // probably incorrect as / is secured, so it will get redirect to /login.
 				.and()
 			.requiresChannel()
 			    .antMatchers("/sec/**").requiresSecure()
@@ -38,7 +37,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	        .requiresChannel()
 	            .antMatchers("/insec/**").requiresInsecure()
 	            .and()
-			.httpBasic();
+			.httpBasic()
+	    		.and()
+			.authorizeRequests()
+                .antMatchers("/login").permitAll()
+                .antMatchers("/resources/**").permitAll()
+			    .anyRequest().authenticated();
 	}
 	
 	@Autowired DataSource dataSource;
