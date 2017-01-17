@@ -1,0 +1,49 @@
+<!-- Simple login page -->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-security4">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" th:href="@{/resources/styles.css}" />
+</head>
+<body>
+<h1>login.html (thymeleaf)</h1>
+<!--  for tutorial refer to: http://docs.spring.io/spring-security/site/docs/3.2.0.RELEASE/guides/form.html  -->
+
+<!-- thymeleaf will automatically add CSRF token for tracking -->
+<form name="f" th:action="@{/login}" method="post">
+  <!-- username, password, submit -->
+  <div th:if="${param.error}" class="alert alert-error">Invalid username and password</div>
+  <div th:if="${param.logout}" class="alert alert-success">User logged has been logged out</div>
+  <label for="username">Username</label>
+  <input type="text" id="username" name="username" />
+  <label for="password">Password</label>
+  <input type="password" id="password" name="password" />
+  <div class="form-actions">
+    <button type="submit" class="btn">Log in</button>
+  </div>
+
+</form>
+</body>
+</html>
+
+<!-- 
+<html>
+<head>
+<title>Login Page</title>
+</head>
+<body onload='document.f.username.focus();'>
+<h3>Login with Username and Password</h3>
+
+<form name='f' action='/SpringSecurity/login' method='POST'>
+<table>
+	<tr><td>User:</td><td><input type='text' name='username' value=''></td></tr>
+	<tr><td>Password:</td><td><input type='password' name='password'/></td></tr>
+	<tr><td colspan='2'><input name="submit" type="submit" value="Login"/></td></tr>
+	<input name="_csrf" type="hidden" value="20049342-64fa-47aa-a10e-51b07cea4b7f" />
+</table>
+</form></body></html>
+
+ -->
