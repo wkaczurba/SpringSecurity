@@ -10,10 +10,24 @@
 <body>
 <h1>main.html (thymeleaf)</h1>
 
+<div sec:authorize="isAuthenticated()">
+Hello <span sec:authentication="name">someone</span>
+</div>
+
 <ul>
-  <li>secure webpage - <a th:href="@{/sec/}">here</a></li>
-  <li>insecure webpage - <a th:href="@{/insec/}">here</a></li>
+  <li><a th:href="@{/sec/}">secure webpage</a></li>
+  <li><a th:href="@{/insec/}">insecure webpage</a></li>
+  
+  <li sec:authorize-url="/admin">
+      <!-- rendered only if user has privilages to see /admin -->
+	  <a th:href="@{/admin/}"><b>admin webpage</b></a>
+  </li>
 </ul>
+
+<!-- LOGOUT has to use POST FORM, otherwise it will not work (requires CSRF hidden token) -->
+<form th:action="@{/logout}" method="POST">
+     <input type="submit" value="Logout"/>
+</form>
 
 </body>
 </html>

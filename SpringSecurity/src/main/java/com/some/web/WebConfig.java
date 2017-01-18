@@ -16,6 +16,7 @@ import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ITemplateResolver;
+import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.ApplicationContext;
@@ -51,6 +52,7 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 	public ITemplateEngine templateEngine() {
 		SpringTemplateEngine templateEngine = new SpringTemplateEngine();
 		templateEngine.setTemplateResolver(templateResolver());
+		templateEngine.addDialect(new SpringSecurityDialect());
 		return templateEngine;
 	}
 	

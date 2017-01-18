@@ -29,6 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	              .successForwardUrl("/")
 				.and()
 				.logout()
+//				  .logoutUrl("/logout")
 				  .logoutSuccessUrl("/") // probably incorrect as / is secured, so it will get redirect to /login.
 				.and()
 			.requiresChannel()
@@ -41,12 +42,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	    		.and()
 			.authorizeRequests()
                 .antMatchers("/login").permitAll()
+                .antMatchers("/logout").permitAll()
+                .antMatchers("/admin").access("hasRole('ADMIN')")
                 .antMatchers("/resources/**").permitAll()
 			    .anyRequest().authenticated();
 	}
 	
 	@Autowired DataSource dataSource;
-	boolean basicAuthentication = false;
+	boolean basicAuthentication = true;
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -55,6 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			auth
 				.inMemoryAuthentication()
 				.withUser("user").password("password").roles("USER").and()
+				.withUser("lolita").password("abc123").roles("USER").and()
 				.withUser("admin").password("password").roles("USER", "ADMIN");
 		} else {
 			// JDBC authentication

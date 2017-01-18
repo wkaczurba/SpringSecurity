@@ -20,4 +20,10 @@ public class MainController {
 	public String insecuredWebPage() {
 		return "insec";
 	}
+	
+	@RequestMapping("/admin")
+	// This should be made secure.
+	public String adminPage() {
+		return "admin";
+	}
 }
